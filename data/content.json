@@ -1,0 +1,96 @@
+{
+  "terrains": [
+    {"id": "plains", "move_cost": 1, "track_visibility_mod": 1.0},
+    {"id": "forest", "move_cost": 2, "track_visibility_mod": 1.2},
+    {"id": "hills", "move_cost": 2, "track_visibility_mod": 0.9}
+  ],
+  "factions": [
+    {"id": "settlers", "settlements": ["0,0"]},
+    {"id": "raiders", "settlements": ["8,8"]}
+  ],
+  "entities": [
+    {
+      "id": "scout",
+      "faction_id": "settlers",
+      "body_parts": [
+        {"id": "head", "coverage": 0.15},
+        {"id": "torso", "coverage": 0.5},
+        {"id": "arm", "coverage": 0.2},
+        {"id": "leg", "coverage": 0.15}
+      ],
+      "mobility": 10,
+      "dexterity": 10,
+      "armor_id": "leather",
+      "weapon_id": "spear"
+    },
+    {
+      "id": "raider",
+      "faction_id": "raiders",
+      "body_parts": [
+        {"id": "head", "coverage": 0.15},
+        {"id": "torso", "coverage": 0.5},
+        {"id": "arm", "coverage": 0.2},
+        {"id": "leg", "coverage": 0.15}
+      ],
+      "mobility": 10,
+      "dexterity": 9,
+      "armor_id": "mail",
+      "weapon_id": "axe"
+    }
+  ],
+  "weapons": [
+    {"id": "spear", "penetration": 4, "damage_type": "pierce", "shock": 1, "base_severity": "medium"},
+    {"id": "axe", "penetration": 6, "damage_type": "cut", "shock": 2, "base_severity": "heavy"},
+    {"id": "club", "penetration": 2, "damage_type": "blunt", "shock": 3, "base_severity": "light"}
+  ],
+  "armors": [
+    {
+      "id": "leather",
+      "thresholds": {
+        "pierce": {"front": 4, "side": 3, "rear": 2},
+        "cut": {"front": 3, "side": 2, "rear": 1},
+        "blunt": {"front": 2, "side": 1, "rear": 1}
+      },
+      "fatigue_on_block": 1,
+      "noise": 0
+    },
+    {
+      "id": "mail",
+      "thresholds": {
+        "pierce": {"front": 7, "side": 6, "rear": 4},
+        "cut": {"front": 6, "side": 5, "rear": 4},
+        "blunt": {"front": 3, "side": 2, "rear": 2}
+      },
+      "fatigue_on_block": 1,
+      "noise": 1
+    }
+  ],
+  "wound_types": [
+    {"id": "slash", "mobility_delta": -2, "dexterity_delta": -1, "bleed": 2},
+    {"id": "blunt", "mobility_delta": -1, "dexterity_delta": -2, "bleed": 0}
+  ],
+  "wound_severities": [
+    {"id": "light", "recovery_ticks": 20},
+    {"id": "medium", "recovery_ticks": 60},
+    {"id": "heavy", "recovery_ticks": 120}
+  ],
+  "encounter_tables": [
+    {
+      "id": "wilds_basic",
+      "entries": [
+        {"weight": 3, "entity_template_id": "raider"},
+        {"weight": 1, "entity_template_id": "scout"}
+      ]
+    }
+  ],
+  "rumor_templates": [
+    {
+      "id": "raid_rumor",
+      "event_type": "raid",
+      "base_confidence": 0.9,
+      "ttl_ticks": 50,
+      "max_hops": 5,
+      "text_pattern": "Reports of {event_type} near hex ({x},{y})"
+    }
+  ]
+}

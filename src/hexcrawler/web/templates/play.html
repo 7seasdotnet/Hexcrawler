@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<head><meta charset="utf-8"/><title>Play</title></head>
+<body>
+  <h3>Play Mode</h3>
+  <button onclick="step()">Advance + Trigger Raid Event</button>
+  <a href="/">Back to Editor</a>
+  <pre id="out"></pre>
+<script>
+async function refresh(){
+  const w = await fetch('/api/world').then(r=>r.json());
+  document.getElementById('out').textContent = JSON.stringify({tick:w.tick, rumors:w.rumors, tracks:w.tracks.slice(-4)}, null, 2);
+}
+async function step(){ await fetch('/api/play',{method:'POST'}); await refresh(); }
+refresh();
+</script>
+</body>
+</html>

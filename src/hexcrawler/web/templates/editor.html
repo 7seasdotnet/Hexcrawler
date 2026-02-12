@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Hexcrawler Editor</title>
+  <style>
+    body { font-family: sans-serif; display: grid; grid-template-columns: 360px 1fr; gap: 8px; }
+    #grid { display: grid; grid-template-columns: repeat(12, 28px); gap: 2px; }
+    .hex { width: 28px; height: 28px; border: 1px solid #666; font-size: 8px; cursor: pointer; }
+    .plains { background: #b8d686; }
+    .forest { background: #5c8c4a; }
+    .hills { background: #b18f6a; }
+    .section { border-top: 1px solid #ddd; margin-top: 8px; padding-top: 8px; }
+  </style>
+</head>
+<body>
+  <div>
+    <h3>Editor</h3>
+    <label>Brush:
+      <select id="terrain"><option>plains</option><option>forest</option><option>hills</option></select>
+    </label><br/>
+    <button onclick="mode='paint'">Paint</button>
+    <select id="siteKind"><option value="dungeon">Dungeon</option><option value="town">Town</option><option value="ruin">Ruin</option></select>
+    <button onclick="mode='site'">Place Site</button>
+    <button onclick="mode='spawn'">Place Spawner</button>
+
+    <div class="section">
+      <h4>Patrol route</h4>
+      <label>Q1 <input id="q1" type="number" value="0"></label>
+      <label>R1 <input id="r1" type="number" value="0"></label>
+      <label>Q2 <input id="q2" type="number" value="3"></label>
+      <label>R2 <input id="r2" type="number" value="3"></label>
+      <button onclick="saveRoute()">Save Route</button>
+    </div>
+
+    <div class="section">
+      <h4>Encounter / Rumor</h4>
+      <label>Encounter Weight <input id="weight" type="number" value="3" /></label>
+      <button onclick="saveEncounter()">Save Encounter</button><br/>
+      <label>Rumor TTL <input id="rumorTtl" type="number" value="50" /></label>
+      <label>Max hops <input id="rumorHops" type="number" value="5" /></label>
+      <button onclick="saveRumorTemplate()">Save Rumor Template</button>
+    </div>
+
+    <div class="section">
+      <h4>Weapons / Armor / Wounds / Factions</h4>
+      <label>Spear Pen <input id="weaponPen" type="number" value="4" /></label>
+      <button onclick="saveWeapon()">Save Weapon</button><br/>
+      <label>Mail front pierce <input id="armorThreshold" type="number" value="7" /></label>
+      <button onclick="saveArmor()">Save Armor</button><br/>
+      <label>Slash mobility <input id="woundMob" type="number" value="-2" /></label>
+      <label>dexterity <input id="woundDex" type="number" value="-1" /></label>
+      <button onclick="saveWound()">Save Wound Type</button><br/>
+      <label>Faction settlement <input id="settlement" type="text" value="1,1" /></label>
+      <button onclick="saveFaction()">Save Faction</button>
+    </div>
+
+    <div class="section">
+      <label>Sim days <input id="days" type="number" value="1" /></label>
+      <button onclick="simulateDays()">Simulate N Days</button>
+      <a href="/play">Play</a>
+      <pre id="log"></pre>
+    </div>
+  </div>
+  <div id="grid"></div>
+<script src="/static/editor.js"></script>
+</body>
+</html>
